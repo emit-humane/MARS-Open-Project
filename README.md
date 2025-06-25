@@ -77,19 +77,19 @@ This tripling improves generalization and robustness.
 
 ## 🚀 How to Run
 
-### 🔧 1. Install Dependencies
+## 🔧 1. Install Dependencies
 pip install -r requirements.txt
 
-🔁 2. Train the Model (optional)
+## 🔁 2. Train the Model (optional)
 
-# In Jupyter or Colab
+### In Jupyter or Colab
 Run model_training.ipynb
-# Will generate:
-# - emotion_classification_model.h5
-# - scaler.pkl
-📂 3. Predict from CLI
+ Will generate:
+ emotion_classification_model.h5
+ scaler.pkl
+## 📂 3. Predict from CLI
 python test_model.py path_to_audio.wav
-🌐 4. Run Streamlit App
+## 🌐 4. Run Streamlit App
 streamlit run app.py
 Upload .wav audio file
 
@@ -121,11 +121,11 @@ Macro F1-Score: >80%
 ## 🧪 Model Evaluation
 
 ### Confusion Matrix
-![Confusion Matrix]![confusion_matrix](https://github.com/user-attachments/assets/befe23ee-3c12-4363-ad80-fde024685167)
+![confusion_matrix](https://github.com/user-attachments/assets/befe23ee-3c12-4363-ad80-fde024685167)
 
 
 ### Results Summary
-![Results Graph]![Results](https://github.com/user-attachments/assets/1583f8ac-ff3f-41d8-aa95-8004849af619)
+![Results](https://github.com/user-attachments/assets/1583f8ac-ff3f-41d8-aa95-8004849af619)
 
 
 
