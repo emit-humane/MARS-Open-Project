@@ -124,9 +124,10 @@ Macro F1-Score: >80%
 
 Evaluated using:
 
-classification_report (precision, recall, f1)
+![classification_report (precision, recall, f1)](Results.png)
 
-Confusion Matrix
+![Confusion Matrix](confusion_matrix.png)
+
 
 🔮 Future Improvements
 🎙️ Live mic recording input
