@@ -1,35 +1,59 @@
-# app.py
-
 import streamlit as st
 import numpy as np
 import librosa
-from tensorflow.keras.models import load_model
-from sklearn.preprocessing import LabelEncoder
+import tensorflow as tf
+import joblib
 
-# Load model
-model = load_model('emotion_classification_model.h5')
+from sklearn.preprocessing import StandardScaler
 
-# Label encoder
-emotion_labels = ['angry', 'calm', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
-le = LabelEncoder()
-le.fit(emotion_labels)
+# --- Load model and scaler ---
+model = tf.keras.models.load_model("emotion_classification_model.h5")
+scaler = joblib.load("scaler.pkl")  # Save using joblib.dump(scaler, "scaler.pkl")
 
-# Feature extraction
-def extract_features(file):
-    audio, sr = librosa.load(file, res_type='kaiser_fast')
-    mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=40).T, axis=0)
-    chroma = np.mean(librosa.feature.chroma_stft(y=audio, sr=sr).T, axis=0)
-    mel = np.mean(librosa.feature.melspectrogram(y=audio, sr=sr).T, axis=0)
-    return np.hstack((mfccs, chroma, mel))
+# --- Emotion labels (same order as one-hot) ---
+emotion_labels = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fear', 'disgust', 'surprise']
 
-# Streamlit UI
-st.title("🎵 Emotion Classifier from Speech")
+# --- Feature extraction ---
+def extract_features(data, sample_rate):
+    result = np.array([])
+    
+    zcr = np.mean(librosa.feature.zero_crossing_rate(y=data).T, axis=0)
+    result = np.hstack((result, zcr))
+
+    stft = np.abs(librosa.stft(data))
+    chroma_stft = np.mean(librosa.feature.chroma_stft(S=stft, sr=sample_rate).T, axis=0)
+    result = np.hstack((result, chroma_stft))
+
+    mfcc = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate).T, axis=0)
+    result = np.hstack((result, mfcc))
+
+    rms = np.mean(librosa.feature.rms(y=data).T, axis=0)
+    result = np.hstack((result, rms))
+
+    mel = np.mean(librosa.feature.melspectrogram(y=data, sr=sample_rate).T, axis=0)
+    result = np.hstack((result, mel))
+
+    return result
+
+def get_input_features(file):
+    data, sample_rate = librosa.load(file, duration=2.5, offset=0.6)
+    raw_features = extract_features(data, sample_rate)
+    scaled = scaler.transform([raw_features])  # shape (1, 162)
+    return np.expand_dims(scaled, axis=2)      # shape (1, 162, 1)
+
+# --- Streamlit UI ---
+st.title("Speech Emotion Recognition")
 
 uploaded_file = st.file_uploader("Upload a WAV file", type=["wav"])
+
 if uploaded_file is not None:
-    st.audio(uploaded_file)
-    features = extract_features(uploaded_file).reshape(1, -1)
-    prediction = model.predict(features)
-    predicted_class = np.argmax(prediction)
-    emotion = le.inverse_transform([predicted_class])[0]
-    st.success(f"Predicted Emotion: **{emotion.upper()}**")
+    st.audio(uploaded_file, format='audio/wav')
+
+    try:
+        features = get_input_features(uploaded_file)
+        prediction = model.predict(features)
+        predicted_emotion = emotion_labels[np.argmax(prediction)]
+
+        st.markdown(f"### Predicted Emotion: **{predicted_emotion}**")
+    except Exception as e:
+        st.error(f"Error processing the file: {e}")
