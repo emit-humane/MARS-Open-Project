@@ -91,23 +91,14 @@ Run model_training.ipynb
 # - emotion_classification_model.h5
 # - scaler.pkl
 📂 3. Predict from CLI
-bash
-Copy
-Edit
 python test_model.py path_to_audio.wav
 🌐 4. Run Streamlit App
-bash
-Copy
-Edit
 streamlit run app.py
 Upload .wav audio file
 
 Get real-time prediction
 
 🗂 Project Structure
-bash
-Copy
-Edit
 emotion-classification/
 ├── model_training.ipynb            # Full training and preprocessing
 ├── emotion_classification_model.h5 # Trained Conv1D model
