@@ -78,13 +78,10 @@ This tripling improves generalization and robustness.
 ## 🚀 How to Run
 
 ### 🔧 1. Install Dependencies
-```bash
 pip install -r requirements.txt
 
 🔁 2. Train the Model (optional)
-bash
-Copy
-Edit
+
 # In Jupyter or Colab
 Run model_training.ipynb
 # Will generate:
@@ -107,8 +104,7 @@ emotion-classification/
 ├── test_model.py                   # CLI prediction script
 ├── requirements.txt                # Dependencies
 └── README.md                       # You’re here
-🎬 Demo Video
-Click here to watch the full demo
+
 Covers:
 
 Model pipeline
@@ -125,10 +121,12 @@ Macro F1-Score: >80%
 ## 🧪 Model Evaluation
 
 ### Confusion Matrix
-![Confusion Matrix](confusion_matrix.png)
+![Confusion Matrix]![confusion_matrix](https://github.com/user-attachments/assets/befe23ee-3c12-4363-ad80-fde024685167)
+
 
 ### Results Summary
-![Results Graph](Results.png)
+![Results Graph]![Results](https://github.com/user-attachments/assets/1583f8ac-ff3f-41d8-aa95-8004849af619)
+
 
 
 
