@@ -122,11 +122,14 @@ Validation Accuracy: ~85%
 
 Macro F1-Score: >80%
 
-Evaluated using:
+## 🧪 Model Evaluation
 
-![classification_report (precision, recall, f1)](Results.png)
-
+### Confusion Matrix
 ![Confusion Matrix](confusion_matrix.png)
+
+### Results Summary
+![Results Graph](Results.png)
+
 
 
 🔮 Future Improvements
