@@ -54,28 +54,16 @@ Evaluated using a confusion matrix and classification_report
 
 🚀 Running the Project
 1️⃣ Install Dependencies
-bash
-Copy
-Edit
 pip install -r requirements.txt
 2️⃣ Predict Emotion from a .wav file
-bash
-Copy
-Edit
 python test_model.py path_to_audio.wav
 3️⃣ Run Web App (Streamlit)
-bash
-Copy
-Edit
 streamlit run app.py
 Upload a .wav file
 
 Get real-time emotion prediction
 
 🔧 Project Structure
-bash
-Copy
-Edit
 emotion-classification/
 ├── model_training.ipynb            # Colab notebook with full training pipeline
 ├── emotion_classification_model.h5 # Trained model
@@ -87,14 +75,11 @@ emotion-classification/
 🎬 Watch the demo — shows the model training, Streamlit app, and command-line testing.
 
 🧪 Sample Output
-yaml
-Copy
-Edit
 Predicted Emotion: happy
 ✍️ Author
 Rudra Sharma
 
 MARS Open Projects 2025 — Project 1 Submission
 
-Contact: rudra310sharm@gmail.com
+Contact: rudra310sharma@gmail.com
 
